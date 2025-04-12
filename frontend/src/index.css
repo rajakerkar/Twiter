@@ -1,0 +1,244 @@
+:root {
+  --primary-color: #1a8cd8;
+  --primary-hover: #1a91da;
+  --secondary-color: #536471;
+  --background-light: #f7f9f9;
+  --border-color: #eff3f4;
+  --text-primary: #0f1419;
+  --text-secondary: #536471;
+  --error-color: #f4212e;
+  --success-color: #00ba7c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--text-primary);
+  background-color: var(--background-light);
+}
+
+/* Custom styles */
+
+/* Profile image placeholders */
+img[src*="via.placeholder.com"] {
+  background-color: #e1e8ed;
+  color: #657786;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-align: center;
+}
+.tweet-card {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.tweet-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+.tweet-avatar {
+  transition: transform 0.2s ease;
+}
+
+.tweet-avatar:hover {
+  transform: scale(1.05);
+}
+
+.tweet-action-btn {
+  transition: all 0.2s ease;
+}
+
+.tweet-action-btn:hover {
+  color: var(--primary-color) !important;
+  transform: scale(1.05);
+}
+
+.tweet-action-btn.text-danger:hover {
+  color: var(--error-color) !important;
+}
+
+.delete-btn {
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  color: var(--error-color) !important;
+}
+
+.hover-underline:hover {
+  text-decoration: underline !important;
+}
+
+.profile-header {
+  background-color: var(--primary-color);
+  height: 200px;
+  position: relative;
+  border-radius: 0 0 16px 16px;
+  background-image: linear-gradient(to bottom right, var(--primary-color), #64b5f6);
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid white;
+  position: absolute;
+  bottom: -75px;
+  left: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.02);
+}
+
+.profile-info {
+  margin-top: 80px;
+  padding: 0 20px;
+}
+
+.tweet-form-container {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.tweet-form-container:focus-within {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.tweet-textarea {
+  border: none;
+  resize: none;
+  width: 100%;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  outline: none;
+  padding: 8px 0;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.tweet-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.tweet-textarea:focus {
+  outline: none;
+}
+
+.tweet-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.tweet-media-container {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.tweet-media-container:hover {
+  transform: scale(1.01);
+}
+
+.comment-item {
+  transition: background-color 0.2s ease;
+  padding: 8px;
+  margin: 0 -8px;
+  border-radius: 12px;
+}
+
+.comment-item:hover {
+  background-color: var(--background-light);
+}
+
+.comment-avatar {
+  transition: transform 0.2s ease;
+}
+
+.comment-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation styles */
+.navbar {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Form styles */
+.form-control {
+  border-radius: 8px;
+  border-color: var(--border-color);
+  padding: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(26, 140, 216, 0.1);
+}
+
+/* Button styles */
+.btn {
+  border-radius: 9999px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Container styles */
+.container {
+  max-width: 680px !important;
+  margin: 0 auto;
+}
+
+/* Utility classes */
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
