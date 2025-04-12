@@ -138,7 +138,8 @@ exports.deleteTweet = async (req, res) => {
       });
     }
 
-    await tweet.remove();
+    // Use deleteOne() instead of remove() which is deprecated
+    await Tweet.deleteOne({ _id: req.params.id });
 
     res.status(200).json({
       success: true,

@@ -13,7 +13,8 @@ const Tweet = ({ tweet }) => {
   const [showComments, setShowComments] = useState(false);
 
   const isLiked = tweet.likes.includes(currentUser?.id);
-  const isAuthor = tweet.user._id === currentUser?.id;
+  // Check both _id and id formats to ensure compatibility
+  const isAuthor = currentUser && (tweet.user._id === currentUser.id || tweet.user._id === currentUser._id || tweet.user.id === currentUser.id);
 
   const handleLike = async () => {
     try {
@@ -30,9 +31,14 @@ const Tweet = ({ tweet }) => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this tweet?')) {
       try {
+        console.log('Deleting tweet with ID:', tweet._id);
         await removeTweet(tweet._id);
+        // Show success message (optional)
+        alert('Tweet deleted successfully');
       } catch (error) {
         console.error('Error deleting tweet:', error);
+        // Show error message to user
+        alert('Failed to delete tweet. Please try again.');
       }
     }
   };

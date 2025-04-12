@@ -3,6 +3,7 @@ import { Container, Card, Spinner, Alert } from 'react-bootstrap';
 import { useTweets } from '../context/TweetContext';
 import TweetForm from '../components/TweetForm';
 import Tweet from '../components/Tweet';
+import SectionErrorBoundary from '../components/SectionErrorBoundary';
 
 const Home = () => {
   const { tweets, loading, fetchAllTweets, fetchTimelineTweets } = useTweets();
@@ -40,19 +41,43 @@ const Home = () => {
         </Card.Header>
       </Card>
 
-      <TweetForm />
+      <SectionErrorBoundary
+        section="tweet form"
+        fallbackMessage="Unable to load the tweet form. Please try again."
+        showDetails={process.env.NODE_ENV === 'development'}
+      >
+        <TweetForm />
+      </SectionErrorBoundary>
 
-      {loading ? (
-        <div className="d-flex justify-content-center py-5">
-          <Spinner animation="border" variant="primary" />
-        </div>
-      ) : tweets.length === 0 ? (
-        <Alert variant="light" className="text-center">
-          <p className="mb-0">No tweets yet. Follow some users or create your first tweet!</p>
-        </Alert>
-      ) : (
-        tweets.map((tweet) => <Tweet key={tweet._id} tweet={tweet} />)
-      )}
+      <SectionErrorBoundary
+        section="tweet list"
+        fallbackMessage="Unable to load tweets. Please try refreshing the page."
+        showDetails={process.env.NODE_ENV === 'development'}
+        onRetry={() => activeTab === 'all' ? fetchAllTweets() : fetchTimelineTweets()}
+      >
+        {loading ? (
+          <div className="d-flex justify-content-center py-5">
+            <Spinner animation="border" variant="primary" />
+          </div>
+        ) : tweets.length === 0 ? (
+          <Alert variant="light" className="text-center">
+            <p className="mb-0">No tweets yet. Follow some users or create your first tweet!</p>
+          </Alert>
+        ) : (
+          <div className="tweet-list">
+            {tweets.map((tweet) => (
+              <SectionErrorBoundary
+                key={tweet._id}
+                section="tweet"
+                minimal={true}
+                hideErrorMessage={true}
+              >
+                <Tweet key={tweet._id} tweet={tweet} />
+              </SectionErrorBoundary>
+            ))}
+          </div>
+        )}
+      </SectionErrorBoundary>
     </Container>
   );
 };

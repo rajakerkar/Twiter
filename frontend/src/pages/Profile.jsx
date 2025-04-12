@@ -5,6 +5,7 @@ import { FaCalendarAlt, FaMapMarkerAlt, FaLink, FaUserPlus, FaUserMinus, FaCamer
 import { getUserById, followUser, unfollowUser, getUserTweets } from '../api';
 import { useAuth } from '../context/AuthContext';
 import Tweet from '../components/Tweet';
+import SectionErrorBoundary from '../components/SectionErrorBoundary';
 
 const Profile = () => {
   const { id } = useParams();
@@ -22,26 +23,26 @@ const Profile = () => {
       : follower._id === currentUser?.id || follower._id === currentUser?._id || follower.id === currentUser?.id
   ) : false;
 
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      setLoading(true);
-      try {
-        const [userRes, tweetsRes] = await Promise.all([
-          getUserById(id),
-          getUserTweets(id)
-        ]);
-        console.log('User profile data:', userRes.data);
-        setProfile(userRes.data.data);
-        console.log('User tweets data:', tweetsRes.data);
-        setTweets(tweetsRes.data.data || []);
-      } catch (err) {
-        setError(err.response?.data?.message || 'Failed to load profile');
-        console.error('Error fetching profile:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProfileData = async () => {
+    setLoading(true);
+    try {
+      const [userRes, tweetsRes] = await Promise.all([
+        getUserById(id),
+        getUserTweets(id)
+      ]);
+      console.log('User profile data:', userRes.data);
+      setProfile(userRes.data.data);
+      console.log('User tweets data:', tweetsRes.data);
+      setTweets(tweetsRes.data.data || []);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to load profile');
+      console.error('Error fetching profile:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProfileData();
   }, [id]);
 
@@ -138,7 +139,13 @@ const Profile = () => {
   return (
     <Container className="py-4">
       {/* Cover Photo and Profile Info */}
-      <Card className="border-0 mb-4">
+      <SectionErrorBoundary
+        section="profile information"
+        fallbackMessage="Unable to load profile information."
+        showDetails={process.env.NODE_ENV === 'development'}
+        onRetry={fetchProfileData}
+      >
+        <Card className="border-0 mb-4">
         <div
           style={{
             height: '200px',
@@ -258,6 +265,7 @@ const Profile = () => {
           </div>
         </Card.Body>
       </Card>
+      </SectionErrorBoundary>
 
       {/* Tabs */}
       <Card className="mb-4">
@@ -292,13 +300,31 @@ const Profile = () => {
 
       {/* Tweets */}
         <Card.Body>
-          {tweets.length === 0 ? (
-            <Alert variant="light" className="text-center">
-              <p className="mb-0">No tweets yet.</p>
-            </Alert>
-          ) : (
-            tweets.map((tweet) => <Tweet key={tweet._id} tweet={tweet} />)
-          )}
+          <SectionErrorBoundary
+            section="profile tweets"
+            fallbackMessage="Unable to load tweets for this profile."
+            showDetails={process.env.NODE_ENV === 'development'}
+            onRetry={() => fetchProfileData()}
+          >
+            {tweets.length === 0 ? (
+              <Alert variant="light" className="text-center">
+                <p className="mb-0">No tweets yet.</p>
+              </Alert>
+            ) : (
+              <div className="tweet-list">
+                {tweets.map((tweet) => (
+                  <SectionErrorBoundary
+                    key={tweet._id}
+                    section="tweet"
+                    minimal={true}
+                    hideErrorMessage={true}
+                  >
+                    <Tweet key={tweet._id} tweet={tweet} />
+                  </SectionErrorBoundary>
+                ))}
+              </div>
+            )}
+          </SectionErrorBoundary>
         </Card.Body>
       </Card>
     </Container>
