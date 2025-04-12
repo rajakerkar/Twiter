@@ -152,10 +152,11 @@ npm run dev
 
 ## 📸 Screenshots
 
-![Notification Page](frontend/assets/notification.png)
-![Profile Page](frontend/assets/profile.png)
 ![Signup Page](frontend/assets/signup.png)
+![Profile Page](frontend/assets/profile.png)
+
 ![Tweet Page](frontend/assets/tweet.png)
+![Notification Page](frontend/assets/notification.png)
 
 ---
 
