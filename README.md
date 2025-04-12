@@ -155,8 +155,13 @@ npm run dev
 You can include screenshots like this inside your `README.md`:
 
 ```md
-![Timeline Page](assets/images/timeline.png)
-![Tweet View](assets/images/tweet.png)
+![Notification Page](frontend/assets/notification.png)
+
+![Profile Page](frontend/assets/profile.png)
+
+![Signup Page](frontend/assets/signup.png)
+
+![tweet Page](frontend/assets/tweet.png)
 ```
 
 ---
