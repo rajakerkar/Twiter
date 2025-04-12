@@ -156,12 +156,9 @@ You can include screenshots like this inside your `README.md`:
 
 ```md
 ![Notification Page](frontend/assets/notification.png)
-
 ![Profile Page](frontend/assets/profile.png)
-
 ![Signup Page](frontend/assets/signup.png)
-
-![tweet Page](frontend/assets/tweet.png)
+![Tweet Page](frontend/assets/tweet.png)
 ```
 
 ---
