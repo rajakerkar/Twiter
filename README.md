@@ -1,6 +1,3 @@
-Here's your updated README for the **Twitter Clone** project, styled similarly to your **ChatApp** README:
-
----
 
 # Twitter Clone 🐦
 
@@ -163,4 +160,5 @@ npm run dev
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
